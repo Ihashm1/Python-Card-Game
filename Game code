@@ -1,0 +1,335 @@
+# importing modules
+import random 
+
+# Run game code on any python IDE  
+ 
+
+
+
+user_store1 = ["cat","dog"]
+pass_store1 = ["meow","woof"]
+
+def sign_up():
+  print("************************************")
+  print("*           PLAYER ONE             *")
+  print("*            SIGN  UP              *")
+  print("*             SCREEN               *")
+  print("************************************") 
+  
+  global user_store
+  global pass_store
+  print("Signup screen for player one")
+  p1_user =input("\nPlayer 1 signup with a username:")
+  p1_password = input("Player 1 signup with a password: ")
+  if p1_user in user_store1 and p1_password in pass_store1:
+    print("\nThis username and password has already bee registered")
+  else:
+    print("\nThis username and password is now registered")
+    user_store1.append(p1_user)
+    pass_store1.append(p1_password)
+    print(user_store1)
+    print(pass_store1)
+  
+  
+sign_up()
+                              
+
+        
+  
+def log_in():
+  print("**********************************")
+  print("*          PLAYER ONE            *")
+  print("*             LOGIN              *")
+  print("*            SCREEN              *")
+  print("**********************************") 
+  
+  global login_userp1
+  print("\nLogin screen for player one")
+  login_userp1 = input("\nPlayer 1 please login username: ")
+  login_passp1 = input("Player 1 please login password: ")
+  if login_userp1 in user_store1 and login_passp1 in pass_store1:
+    print("\nSigning in player 2...  ")
+  else:
+    print("\nUsername or password incorrect, please register again")
+    user_store1.clear()
+    pass_store1.clear()#these clear the stores to allow them to register again, otherwise it would have let them register then said already registered 
+    sign_up()
+    log_in()
+      
+log_in()
+
+
+
+user_store2 = []
+pass_store2 = []
+
+def sign_up2():
+  print("************************************")
+  print("*           PLAYER TWO             *")
+  print("*            SIGN  UP              *")
+  print("*             SCREEN               *")
+  print("************************************") 
+ 
+  global user_store
+  global pass_store
+  print("Signup screen for player 2")
+  p2_user =input("\nPlayer 2 signup with a username:")
+  p2_password = input("Player 2 signup with a password: ")
+  if p2_user in user_store2 and p2_password in pass_store2:
+    print("\nThis username and password has already bee registered")
+  else:
+    print("\nThis username and password is now registered")
+    user_store2.append(p2_user)
+    pass_store2.append(p2_password)
+    print(user_store2)
+    print(pass_store2)
+
+sign_up2()
+
+def log_in2():
+
+  print("**********************************")
+  print("*          PLAYER TWO            *")
+  print("*             LOGIN              *")
+  print("*            SCREEN              *")
+  print("**********************************")
+  global user_store2
+  global pass_store2
+  global login_userp2
+  print("\nLogin screen for player 2")
+  login_userp2 = input("\nPlayer 2 please login username: ")
+  login_passp2 = input("Player 2 please login password: ")
+  if login_userp2 in user_store2 and login_passp2 in pass_store2:
+    print("\n Starting game...  ")
+  else:
+    print("\nUsername or password incorrect, please register again")
+    user_store2.clear()#these clear the stores to allow them to register again, otherwise it would have let them register then said already registered
+    pass_store2.clear()
+    sign_up2()
+    log_in2()
+
+log_in2()
+
+def set_player(): # SETS PLAYERS TO thier usernames
+  global player1_name
+  global player2_name
+  player1_name = login_userp1
+  player2_name = login_userp2
+
+set_player()
+
+
+
+#RULES
+print("* RULES *")
+print("\nRULES :\nPlayer one will take a card from the top of the deck, followed by Player 2 taking the next one. \nIf both cards are different colours, then Red beats Black , Yellow beats Red and Black beats Yellow, the person who wins the round takes both cards. \nIf both cards are the same colour, then the person with the higher number wins the round and takes both cards. \nAfter going thorugh the whole deck of 30, the person with the most cards wins!")
+# use.append here instead
+#DECK, set deck and shuffles it
+def deckshuffle():
+  global deck
+  global x
+  global x2
+  global resetdeck
+  deck = ['Yellow 1','Yellow 2','Yellow 3','Yellow 4', 'Yellow 5', 'Yellow 6', 'Yellow 7', 'Yellow 8', 'Yellow 9', 'Yellow 10', 'Red 1', 'Red 2', 'Red 3', 'Red 4', 'Red 5', 'Red 6', 'Red 7', 'Red 8', 'Red 9', 'Red 10', 'Black 1', 'Black 2', 'Black 3', 'Black 4', 'Black 5', 'Black 6', 'Black 7', 'Black 8', 'Black 9', 'Black 10']
+  random.shuffle (deck)
+  print('\n',deck)
+  x=-2
+  x2=-1
+  resetdeck = True
+
+deckshuffle()
+
+
+p1_score = 0
+p2_score = 0
+
+
+
+
+def next_set(): #only gives cards after next set press, as next set is before the give_card func in the loop
+  global nextset
+  nextset=input("\nplease input the ENTER KEY for the next cards")
+ 
+  
+  
+#print first card for player 1
+def givecard_players():
+  global x
+  global x2
+  global playerone
+  global playertwo
+  global first_word1
+  global first_word2
+  global n1
+  global n2
+  global resetdeck
+  print("\nPlayer 1 got:") #print first card for player 1
+  for i in range(1): # range - repeats only once
+    x=x+2           
+    print(deck[x])
+  print("\nPlayer 2 got:")#print second card for player 2
+  for i in range(1):
+    x2=x2+2
+    print(deck[x2])
+  playerone = deck[x]   #player one assigned their cards 
+  playertwo = deck[x2]
+  print(x,x2)  #get rid later #player two assigned their cards
+  #Splits word from number 
+  first_word1 = playerone.split()[0]  
+  first_word2 = playertwo.split()[0]
+  #Splits number from word
+  n1 = int(playerone.split()[1])
+  n2 = int(playertwo.split()[1])
+  if x and x2 == 29:  # whilst looping, if decks reach 29, resetdeck = false to end loop as max cards have been handed out 
+    resetdeck = False   
+
+#Function
+givecard_players()
+
+
+def score_cards ():# sets cards and score 
+  global p1_winningcards
+  global p2_winningcards
+  global p1_score
+  global p2_score
+  p1_winningcards = []# list created for winning cards to be added      
+  p2_winningcards =[]
+  p1_score=0
+  p2_score=0
+
+score_cards()
+
+# comparing cards function
+def compare():
+  global first_word1
+  global first_word2
+  global p1_score
+  global p2_score
+  global fullcard1
+  global fullcard2
+  #varibales made to put whole card together as one item
+  fullcard1 = first_word1 + str(n1) 
+  fullcard2 = first_word2 + str(n2)
+  if first_word1 == "Red" and first_word2== "Black":
+    print("\nPlayer 1 beats Player 2, they take both cards!")
+    p1_score = p1_score + 2 
+    p1_winningcards.append(fullcard1)
+    p1_winningcards.append(fullcard2)
+  if first_word1 == "Black" and first_word2== "Red":
+    print("\nPlayer 2 beats Player 1, they take both cards!")
+    p2_score = p2_score + 2
+    p2_winningcards.append(fullcard2)
+    p2_winningcards.append(fullcard1)
+  if first_word1 == "Yellow" and first_word2== "Red":
+    print("\nPlayer 1 beats Player 2, they take both cards!")
+    p1_score = p1_score + 2
+    p1_winningcards.append(fullcard1)
+    p1_winningcards.append(fullcard2)  
+  if first_word1 == "Red" and first_word2== "Yellow":
+    print("\nPlayer 2 beats Player 1, they take both cards!")
+    p2_score = p2_score + 2
+    p2_winningcards.append(fullcard2)
+    p2_winningcards.append(fullcard1)
+  if first_word1 == "Black" and first_word2== "Yellow":
+    print("\nPlayer 1 beats Player 2, they take both cards!")
+    p1_score = p1_score + 2
+    p1_winningcards.append(fullcard1)
+    p1_winningcards.append(fullcard2)
+  if first_word1 == "Yellow" and first_word2== "Black":
+    print("\nPlayer 2 beats Player 1, they take both cards!")
+    p2_score = p2_score + 2
+    p2_winningcards.append(fullcard2)
+    p2_winningcards.append(fullcard1)
+  if first_word1 == first_word2 and n1 > n2:
+    print("\nPlayer 1 beats Player 2, they take both cards!")
+    p1_score = p1_score + 2
+    p1_winningcards.append(fullcard1)
+    p1_winningcards.append(fullcard2)
+  if first_word1 == first_word2 and n2 > n1:
+    print("\nPlayer 2 beats Player 1, they take both cards!")
+    p2_score = p2_score + 2
+    p2_winningcards.append(fullcard2)
+    p2_winningcards.append(fullcard1)
+    
+    
+
+compare()
+
+
+#function to print winning cards of players in number and the list 
+def printwinning ():
+  print("\nPlayer 1:",player1_name,":winning cards : ",p1_score)
+  print("Player 2:",player2_name, ":winning cards : ",p2_score)
+  print("\nPlayer 1:",player1_name, ":winning cards: ",p1_winningcards)
+  print("\nPlayer 2:",player2_name, ":winning cards: ",p2_winningcards)
+ 
+    
+printwinning()
+
+def printwinning_overall():
+  global len_p1WC
+  global len_p2WC
+  len_p1WC = len(p1_winningcards)
+  len_p2WC = len(p2_winningcards)
+  if len_p1WC > len_p2WC:
+    print("\nPLAYER ONE:",player1_name," WINS THE GAME! WITH...", p1_score,"CARDS")
+  if len_p2WC > len_p1WC:
+    print("\nPLAYER 2:",player2_name," WINS THE GAME!  WITH...", p2_score,"CARDS")
+
+
+
+ 
+ 
+ 
+
+
+# The loop, if reset deck = true will keep doing the functions, until resetdeck = false(once handed out max cards)  
+while resetdeck == True:
+  next_set()
+  givecard_players()
+  compare()
+  printwinning()
+
+if resetdeck == False:
+  printwinning_overall()
+  
+with open('scoreboard.txt', 'w') as f: # works first time yay, but not second :(
+        if len_p1WC > len_p2WC:
+          f.write(player1_name)
+          f.write('\n')
+          f.write(str(p1_score))
+        if len_p2WC > len_p1WC:
+          f.write(player2_name)
+          f.write('\n')
+          f.write(str(p2_score))
+          f = open("scoreboard.txt", "r")
+          print("scoreboard:",f.read()) 
+
+
+def next_player(): # sets up next players, resets whole game, only if nxtplayers == y (below)
+  global nxtplayers
+  global resetdeck
+  nxtplayers= str(input("are there new players -write in capital either Y or N"))
+  if nxtplayers == "Y" :
+    sign_up()
+    sign_up2()
+    log_in()
+    log_in2()
+    deckshuffle()
+    set_player()
+    score_cards()
+    resetdeck = True
+  while resetdeck == True:
+    next_set()
+    givecard_players()
+    compare()
+    printwinning()
+  
+  if resetdeck == False:
+      printwinning_overall()
+      nxtplayers = str(input("are there new players"))
+      if nxtplayers == "Y":
+        next_player()
+    
+
+next_player()
